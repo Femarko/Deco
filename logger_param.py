@@ -39,7 +39,7 @@ def test_2():
         def div(a, b):
             return a / b
 
-        return 'Hello World'
+        return 'Hello World' # Эта строка изменена. Предыдущая версия: assert 'Hello World' == hello_world(), "Функция возвращает 'Hello World'"
         result = summator(2, 2)
         assert isinstance(result, int), 'Должно вернуться целое число'
         assert result == 4, '2 + 2 = 4'
