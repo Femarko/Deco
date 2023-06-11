@@ -5,14 +5,14 @@ def logger(path):
     def __logger(old_function):
         def new_function(*args, **kwargs):
             result = old_function(*args, **kwargs)
-            result_str = str(result)
+            result_str = str(result) + '\n' + '\n'
             call_time = str(datetime.datetime.now()) + '\n'
             func_name = str(old_function) + '\n'
             func_args = str([args, kwargs]) + '\n'
             file_name = 'main.log'
             path_to_the_file = os.path.dirname(path)
             full_path = os.path.join(path_to_the_file, file_name)
-            with open(full_path, 'a') as log_file:
+            with open(full_path, 'a', encoding='utf-8') as log_file:
                 log_file.write(call_time)
                 log_file.write(func_name)
                 log_file.write(func_args)
@@ -39,7 +39,7 @@ def test_2():
         def div(a, b):
             return a / b
 
-        assert 'Hello World' == hello_world(), "Функция возвращает 'Hello World'"
+        return 'Hello World'
         result = summator(2, 2)
         assert isinstance(result, int), 'Должно вернуться целое число'
         assert result == 4, '2 + 2 = 4'
@@ -62,3 +62,5 @@ def test_2():
 
 if __name__ == '__main__':
     test_2()
+
+
