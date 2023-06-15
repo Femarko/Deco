@@ -13,7 +13,6 @@ def logger(path):
             func_name = str(old_function) + '\n'
             func_args = str([args, kwargs]) + '\n'
             file_name = 'log_' + str(call_count) + '.log'
-            # current_dir = os.path.curdir()
             path_to_the_file = os.path.dirname(path)
             full_path = os.path.join(path_to_the_file, file_name)
             with open(full_path, 'a', encoding='utf-8') as log_file:
@@ -24,7 +23,6 @@ def logger(path):
             return result
         return new_function
     return __logger
-
 
 def test_2():
     paths = ('log_1.log', 'log_2.log', 'log_3.log')
@@ -67,5 +65,4 @@ def test_2():
 
 
 if __name__ == '__main__':
-
     test_2()
