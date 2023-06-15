@@ -4,33 +4,34 @@ import datetime
 def logger(old_function):
     def new_function(*args, **kwargs):
         result = old_function(*args, **kwargs)
-        call_time = datetime.datetime.now()
-        func_name = old_function
-        func_args = [args, kwargs]
+        call_time = str(datetime.datetime.now())
+        func_name = str(old_function)
+        func_args = str([args, kwargs])
         with open('main.log', 'a') as log_file:
             log_file.write(call_time)
             log_file.write(func_name)
             log_file.write(func_args)
-            log_file.write(result)
+            log_file.write(str(result))
         return result
     return new_function
+
 
 def test_1():
     path = 'main.log'
     if os.path.exists(path):
         os.remove(path)
 
-@logger
-def hello_world():
-    return 'Hello World'
+    @logger
+    def hello_world():
+        return 'Hello World'
 
-@logger
-def summator(a, b=0):
-    return a + b
+    @logger
+    def summator(a, b=0):
+        return a + b
 
-@logger
-def div(a, b):
-    return a / b
+    @logger
+    def div(a, b):
+        return a / b
 
     assert 'Hello World' == hello_world(), "Функция возвращает 'Hello World'"
     result = summator(2, 2)

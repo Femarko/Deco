@@ -3,13 +3,17 @@ import datetime
 
 def logger(path):
     def __logger(old_function):
+        call_count = 0
         def new_function(*args, **kwargs):
+            nonlocal call_count
+            call_count += 1
             result = old_function(*args, **kwargs)
             result_str = str(result) + '\n' + '\n'
             call_time = str(datetime.datetime.now()) + '\n'
             func_name = str(old_function) + '\n'
             func_args = str([args, kwargs]) + '\n'
-            file_name = 'main.log'
+            file_name = 'log_' + str(call_count) + '.log'
+            # current_dir = os.path.curdir()
             path_to_the_file = os.path.dirname(path)
             full_path = os.path.join(path_to_the_file, file_name)
             with open(full_path, 'a', encoding='utf-8') as log_file:
@@ -17,8 +21,10 @@ def logger(path):
                 log_file.write(func_name)
                 log_file.write(func_args)
                 log_file.write(result_str)
+            return result
         return new_function
     return __logger
+
 
 def test_2():
     paths = ('log_1.log', 'log_2.log', 'log_3.log')
@@ -39,7 +45,7 @@ def test_2():
         def div(a, b):
             return a / b
 
-        return 'Hello World' # Эта строка изменена. Предыдущая версия: assert 'Hello World' == hello_world(), "Функция возвращает 'Hello World'"
+        assert 'Hello World' == hello_world(), "Функция возвращает 'Hello World'"
         result = summator(2, 2)
         assert isinstance(result, int), 'Должно вернуться целое число'
         assert result == 4, '2 + 2 = 4'
@@ -61,6 +67,5 @@ def test_2():
 
 
 if __name__ == '__main__':
+
     test_2()
-
-
