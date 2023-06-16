@@ -3,18 +3,14 @@ import datetime
 
 def logger(path):
     def __logger(old_function):
-        call_count = 0
         def new_function(*args, **kwargs):
-            nonlocal call_count
-            call_count += 1
             result = old_function(*args, **kwargs)
             result_str = str(result) + '\n' + '\n'
             call_time = str(datetime.datetime.now()) + '\n'
             func_name = str(old_function) + '\n'
             func_args = str([args, kwargs]) + '\n'
-            file_name = 'log_' + str(call_count) + '.log'
             path_to_the_file = os.path.dirname(path)
-            full_path = os.path.join(path_to_the_file, file_name)
+            full_path = os.path.join(path_to_the_file, path)
             with open(full_path, 'a', encoding='utf-8') as log_file:
                 log_file.write(call_time)
                 log_file.write(func_name)

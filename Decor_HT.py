@@ -1,33 +1,16 @@
 import os
 import datetime
+from logger_param import logger
 
 current_dir = os.getcwd()
-target_dir = 'Deco'
-target_path = os.path.join(current_dir, target_dir)
-
-def logger(path):
-    def __logger(old_function):
-        def new_function(*args, **kwargs):
-            result = old_function(*args, **kwargs)
-            result_str = str(result) + '\n' + '\n'
-            call_time = str(datetime.datetime.now()) + '\n'
-            func_name = str(old_function) + '\n'
-            func_args = str([args, kwargs]) + '\n'
-            file_name = 'main.log'
-            path_to_the_file = os.path.dirname(path)
-            full_path = os.path.join(path_to_the_file, file_name)
-            with open(full_path, 'a', encoding='utf-8') as log_file:
-                log_file.write(call_time)
-                log_file.write(func_name)
-                log_file.write(func_args)
-                log_file.write(result_str)
-        return new_function
-    return __logger
+file_name = 'callings.log'
+target_path = os.path.join(current_dir, file_name)
 
 class Cook_book:
     def __init__(self, sourse):
         self.sourse = sourse
 
+    @logger(target_path)
     def create_dict(self):
         with open(self.sourse, 'rt', encoding='utf-8') as file:
             cook_book_dict = {}
